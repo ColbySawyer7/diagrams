@@ -1,0 +1,153 @@
+@import "tailwindcss";
+
+/* Piton Custom Colors */
+:root {
+  --piton-primary: 262.1 47.8% 40.4%; /* #53389E - Primary */
+  --piton-secondary: 262.1 47.8% 79.2%; /* #BCA7EB - Secondary */
+  --piton-active: 142.1 68.8% 45.1%; /* #2ECC71 - Active */
+  --piton-warning: 42.1 100% 50.2%; /* #FFAE01 - Warning */
+  --piton-bad: 6.3 78.7% 58.2%; /* #E74C3C - Bad */
+
+  --background: #ffffff;
+  --foreground: #171717;
+  --diagram-bg: #fafafa;
+  --diagram-card-bg: rgba(255, 255, 255, 0.95);
+  --diagram-card-border: rgba(0, 0, 0, 0.08);
+  --diagram-text: #374151;
+  --diagram-text-muted: #6b7280;
+  --diagram-line: hsl(var(--piton-primary) / 0.85);
+  --diagram-line-out: hsl(var(--piton-active) / 0.9);
+  --diagram-glow: hsl(var(--piton-primary) / 0.25);
+  --diagram-border-primary: hsl(var(--piton-primary) / 0.6);
+  --diagram-border-active: hsl(var(--piton-active) / 0.6);
+  --diagram-border-warning: hsl(var(--piton-warning) / 0.5);
+  --diagram-line-device: hsl(var(--piton-warning) / 0.9);
+  --diagram-border-device: hsl(var(--piton-warning) / 0.65);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+    --diagram-bg: #0a0a0a;
+    --diagram-card-bg: rgba(23, 23, 23, 0.95);
+    --diagram-card-border: rgba(255, 255, 255, 0.12);
+    --diagram-text: #e5e5e5;
+    --diagram-text-muted: #a3a3a3;
+    --diagram-line: hsl(var(--piton-secondary) / 0.9);
+    --diagram-line-out: hsl(var(--piton-active) / 0.85);
+    --diagram-glow: hsl(var(--piton-primary) / 0.35);
+    --diagram-border-primary: hsl(var(--piton-secondary) / 0.7);
+    --diagram-border-active: hsl(var(--piton-active) / 0.7);
+    --diagram-border-warning: hsl(var(--piton-warning) / 0.6);
+    --diagram-line-device: hsl(var(--piton-warning) / 0.85);
+    --diagram-border-device: hsl(var(--piton-warning) / 0.7);
+  }
+}
+
+/* Theme toggle override: force light */
+html.light {
+  --background: #ffffff;
+  --foreground: #171717;
+  --diagram-bg: #fafafa;
+  --diagram-card-bg: rgba(255, 255, 255, 0.95);
+  --diagram-card-border: rgba(0, 0, 0, 0.08);
+  --diagram-text: #374151;
+  --diagram-text-muted: #6b7280;
+  --diagram-line: hsl(var(--piton-primary) / 0.85);
+  --diagram-line-out: hsl(var(--piton-active) / 0.9);
+  --diagram-glow: hsl(var(--piton-primary) / 0.25);
+  --diagram-border-primary: hsl(var(--piton-primary) / 0.6);
+  --diagram-border-active: hsl(var(--piton-active) / 0.6);
+  --diagram-border-warning: hsl(var(--piton-warning) / 0.5);
+  --diagram-line-device: hsl(var(--piton-warning) / 0.9);
+  --diagram-border-device: hsl(var(--piton-warning) / 0.65);
+}
+
+/* Theme toggle override: force dark */
+html.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --diagram-bg: #0a0a0a;
+  --diagram-card-bg: rgba(23, 23, 23, 0.95);
+  --diagram-card-border: rgba(255, 255, 255, 0.12);
+  --diagram-text: #e5e5e5;
+  --diagram-text-muted: #a3a3a3;
+  --diagram-line: hsl(var(--piton-secondary) / 0.9);
+  --diagram-line-out: hsl(var(--piton-active) / 0.85);
+  --diagram-glow: hsl(var(--piton-primary) / 0.35);
+  --diagram-border-primary: hsl(var(--piton-secondary) / 0.7);
+  --diagram-border-active: hsl(var(--piton-active) / 0.7);
+  --diagram-border-warning: hsl(var(--piton-warning) / 0.6);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Crag diagram animations */
+@keyframes flow-in {
+  to {
+    stroke-dashoffset: -28;
+  }
+}
+@keyframes flow-out {
+  to {
+    stroke-dashoffset: 22;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 32px var(--diagram-glow);
+  }
+  50% {
+    box-shadow: 0 0 48px var(--diagram-glow);
+  }
+}
+.animate-flow-in {
+  animation: flow-in 0.8s linear infinite;
+}
+.animate-flow-out {
+  animation: flow-out 0.7s linear infinite;
+}
+.animate-fade-in {
+  animation: fade-in 0.5s ease-out forwards;
+  opacity: 0;
+}
+.animate-scale-in {
+  animation: scale-in 0.6s ease-out forwards;
+  opacity: 0;
+}
+.animate-pulse-glow {
+  animation: pulse-glow 2.5s ease-in-out infinite;
+}
